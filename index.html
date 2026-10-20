@@ -165,7 +165,48 @@ main{padding-block:20px 60px}
 .cause div{display:grid;grid-template-columns:96px 1fr;gap:8px;font-size:15px}
 .cause div span:first-child{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.05em;font-size:13px;color:var(--muted);padding-top:2px}
 .cause .fx span:last-child{font-weight:500}
+.authwrap{position:relative}
+.authbtn{border:1.5px solid var(--line);background:var(--panel);border-radius:6px;padding:6px 10px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;max-width:140px;overflow:hidden;text-overflow:ellipsis}
+.authmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:30;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);padding:10px;min-width:220px;display:grid;gap:6px}
+.authmenu .who{margin:0;font-size:13px;color:var(--muted);word-break:break-all}
+.authmenu .warnp{margin:0;font-size:13px;color:var(--warn)}
+.authmenu .mi{border:0;background:var(--chip);border-radius:7px;padding:9px 10px;text-align:left;font-weight:600;cursor:pointer}
+.edit-btn{border-color:var(--accent);color:var(--accent)}
+.note.n{background:#E4ECF7;border-left:4px solid #2F5E9E;margin:0 0 16px}
+.note.n b{color:#2F5E9E}
+:root[data-theme="dark"] .note.n{background:#1B2738}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .note.n{background:#1B2738}}
+.editor{position:fixed;inset:0;z-index:35;background:var(--bg);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.edscroll{flex:1;overflow-y:auto}
+.edscroll .wrap{max-width:820px;padding-block:16px 30px}
+.ehelp{color:var(--muted);font-size:14px;margin:0 0 12px}
+.eb{border:1px solid var(--line);border-radius:10px;background:var(--panel);margin:0 0 14px;padding:12px 14px;display:grid;gap:10px;min-width:0}
+.eb legend{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.05em;font-size:15px;padding:0 6px}
+.note-eb{border-color:#2F5E9E}
+.bi{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bf{display:grid;gap:3px;min-width:0}
+.bf span{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em}
+.bf input,.bf textarea{font:inherit;font-size:15px;padding:8px 10px;border:1.5px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);width:100%;resize:vertical}
+.bf input:focus,.bf textarea:focus{border-color:var(--accent);outline:none}
+.erow{display:flex;gap:8px;align-items:flex-start;border-top:1px dashed var(--line);padding-top:10px}
+.erow:first-of-type{border-top:0;padding-top:0}
+.enum{font-family:var(--f-display);font-weight:700;font-size:26px;color:var(--accent);min-width:24px;line-height:1}
+.ecol{flex:1;min-width:0;display:grid;gap:6px}
+.ethumb{max-height:70px;width:auto;border-radius:5px;border:1px solid var(--line)}
+.ebtns{display:flex;flex-direction:column;gap:4px}
+.ebtns button{border:1px solid var(--line);background:var(--chip);border-radius:6px;width:32px;height:30px;cursor:pointer;font-size:12px}
+.ebtns button:disabled{opacity:.3}
+.eadd{justify-self:start;border:1.5px dashed var(--accent);background:transparent;color:var(--accent);border-radius:8px;padding:8px 12px;font-weight:600;cursor:pointer}
+.erestore{border:1.5px solid var(--warn);background:var(--warn-soft);color:var(--warn);border-radius:8px;padding:10px 14px;font-weight:600;cursor:pointer}
+.team{list-style:none;padding:0;margin:0 0 12px;display:grid;gap:6px}
+.team li{display:flex;justify-content:space-between;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 10px;word-break:break-all}
+.team button{border:0;background:var(--chip);border-radius:6px;width:30px;cursor:pointer}
+.teamadd{display:flex;gap:8px}
+.teamadd input{flex:1;min-width:0;font:inherit;padding:10px;border:1.5px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}
+.teamadd button{border:0;background:var(--accent);color:var(--accent-ink);border-radius:8px;padding:0 16px;font-weight:700;cursor:pointer}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:50;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:10px;font-weight:600;max-width:calc(100% - 32px);box-shadow:0 6px 20px rgba(0,0,0,.25)}
 @media (max-width:520px){
+  .bi{grid-template-columns:1fr}
   .brandmark span{display:none}
   .step{padding:18px 14px;gap:12px}.num{font-size:44px;min-width:34px}.step p{font-size:19px}
   .cause div{grid-template-columns:1fr;gap:2px}
@@ -176,6 +217,7 @@ main{padding-block:20px 60px}
 <header>
   <div class="wrap top">
     <div class="brandmark"><h1 id="appTitle">Guía de Monitores</h1><span id="appSub"></span></div>
+    <div class="authwrap"><button class="authbtn" id="authBtn" hidden></button><div class="authmenu" id="authMenu" hidden></div></div>
     <div class="lang" role="group" aria-label="Idioma">
       <button id="lang-es" data-l="es" aria-pressed="true">ES</button>
       <button id="lang-pt" data-l="pt" aria-pressed="false">PT</button>
@@ -189,6 +231,7 @@ main{padding-block:20px 60px}
 <div class="viewer" id="viewer" hidden>
   <div class="vhead"><div class="wrap">
     <h2 id="vTitle"></h2>
+    <button class="icon-btn edit-btn" id="vEdit" hidden>✎</button>
     <button class="icon-btn" id="vMode"></button>
     <button class="icon-btn" id="vClose" aria-label="Cerrar">✕</button>
   </div></div>
@@ -199,6 +242,12 @@ main{padding-block:20px 60px}
   </div></div>
 </div>
 
+<div class="editor" id="editor" hidden role="dialog" aria-modal="true">
+  <div class="vhead"><div class="wrap"><h2 id="edTitle"></h2></div></div>
+  <div class="edscroll"><div class="wrap" id="edBody"></div></div>
+  <div class="vfoot"><div class="wrap"><button class="big prev" id="edCancel"></button><button class="big next" id="edSave"></button></div></div>
+</div>
+<div class="toast" id="toast" hidden role="status"></div>
 <div class="zoom" id="zoom" hidden><div id="zBox"></div><span>✕</span></div>
 <script>
 // Contenido de las guías. Cada texto: [español, português]
@@ -1152,6 +1201,7 @@ function render(){
   renderTabs();
   if(tab==="errores") renderErrors(); else renderBrand();
   if(cur) renderViewer();
+  renderAuth();
 }
 function renderBrand(){
   const b = BRANDS[tab];
@@ -1191,10 +1241,11 @@ function renderProblems(html, fq){
   if(had){ const i=$("q"); i.focus(); i.setSelectionRange(i.value.length,i.value.length); }
 }
 const firstImg = g => { const m=IMGS[g.id]; if(!m) return null; const k=Object.keys(m).sort((a,b)=>a-b)[0]; const v=m[k]; return Array.isArray(v)?v[0]:v; };
-const imgs = (g,i) => { const v=(IMGS[g.id]||{})[i]; return v ? (Array.isArray(v)?v:[v]) : []; };
+const origIdx = (g,i) => g._o ? g._o[i] : i;
+const imgs = (g,i) => { const oi=origIdx(g,i); if(oi==null) return []; const v=(IMGS[g.id]||{})[oi]; return v ? (Array.isArray(v)?v:[v]) : []; };
 const markHtml = key => ((typeof MARKS!=="undefined" && MARKS[key])||[]).map(m=>`<i class="mk" style="left:${m[0]}%;top:${m[1]}%">${m[2]?esc(m[2]):""}</i>`).join("");
 const fig = (f,key,lazy=true) => `<span class="fig" data-zoom="${f}" data-mk="${key||""}"><img src="img/${f}.jpg" alt="" ${lazy?'loading="lazy"':""}>${key?markHtml(key):""}</span>`;
-const pic = (g,i) => imgs(g,i).map((f,n)=>fig(f, n===0?g.id+":"+i:"")).join("");
+const pic = (g,i) => imgs(g,i).map((f,n)=>fig(f, n===0?g.id+":"+origIdx(g,i):"")).join("");
 const card = g => `<button class="card" data-g="${g.id}">
   ${firstImg(g)?`<span class="thumb"><img src="img/${firstImg(g)}.jpg" alt="" loading="lazy"></span>`:""}
   <span class="t">${esc(L(g.title))}</span>
@@ -1231,6 +1282,7 @@ function renderViewer(){
   $("vTitle").textContent = L(g.title);
   $("vMode").textContent = L(listMode?UI.stepMode:UI.listMode);
   let h = `<p class="intro">${esc(L(g.intro))}</p>`;
+  if(g.note) h += `<div class="note n"><b>${esc(L(UE.fNote))}</b><span>${esc(L(g.note)).replace(/\n/g,"<br>")}</span></div>`;
   if(listMode){
     h += `<div class="list">${g.steps.map((s,i)=>`<div class="step"><span class="num">${i+1}</span><div class="sc"><p>${esc(L(s))}</p>${pic(g,i)}</div></div>`).join("")}</div>${notes(g)}`;
   } else {
@@ -1240,7 +1292,7 @@ function renderViewer(){
     if(imgs(g,idx).length) h += `<p class="hint">${esc(L(UI.zoom))}</p>`;
     if(idx===n-1 || (g.warn&&idx===0)) h += notes(g);
   }
-  h += `<p class="src">${esc(L(UI.source))}: ${esc(g.src)}</p>`;
+  h += `<p class="src">${esc(L(UI.source))}: ${esc(g.src)}${g._by?` · ${esc(L(UE.editedBy))} ${esc(g._by)}${g._at?" ("+g._at.toLocaleDateString(lang==="es"?"es-PY":"pt-BR")+")":""}`:""}</p>`;
   $("vInner").innerHTML = h;
   $("vFoot").hidden = listMode;
   $("vPrev").textContent = L(UI.prev); $("vPrev").disabled = idx===0;
@@ -1272,6 +1324,8 @@ $("vPrev").onclick=()=>{ if(idx>0){idx--; renderViewer();} };
 $("vNext").onclick=()=>{ if(idx<cur.steps.length-1){idx++; renderViewer(); $("vBody").scrollTop=0;} else closeGuide(); };
 document.addEventListener("keydown", e=>{
   if(!cur) return;
+  if(!$("editor").hidden){ if(e.key==="Escape"){ $("editor").hidden=true; } return; }
+  if(e.target.matches && e.target.matches("input,textarea")) return;
   if(e.key==="Escape"){ if(!$("zoom").hidden){ $("zoom").hidden=true; return; } closeGuide(); }
   if(!listMode && e.key==="ArrowRight") $("vNext").click();
   if(!listMode && e.key==="ArrowLeft") $("vPrev").click();
@@ -1281,9 +1335,181 @@ let sx=null;
 $("vBody").addEventListener("touchstart",e=>{sx=e.touches[0].clientX},{passive:true});
 $("vBody").addEventListener("touchend",e=>{ if(sx===null||listMode) return; const dx=e.changedTouches[0].clientX-sx; sx=null; if(Math.abs(dx)>60){ dx<0?$("vNext").click():$("vPrev").click(); } });
 
+// ───────── Edición por técnicos (Firebase) ─────────
+const FB_CONFIG = {
+  apiKey: "AIzaSyD5v4f0L1dzDFSDHDsiJCGvyHNRnM2BG8k",
+  authDomain: "guia-monitoresguia-monitores.firebaseapp.com",
+  projectId: "guia-monitoresguia-monitores",
+  storageBucket: "guia-monitoresguia-monitores.firebasestorage.app",
+  messagingSenderId: "1022031263822",
+  appId: "1:1022031263822:web:bdded320cd803bb287eb1f",
+};
+const ADMIN_EMAIL = "mjcorrea.agro@gmail.com";
+const UE = {
+  login:["Entrar (técnicos)","Entrar (técnicos)"], logout:["Salir","Sair"],
+  edit:["✎ Editar","✎ Editar"], editing:["Editando","Editando"],
+  noPerm:["Su cuenta no tiene permiso para editar. Pida acceso al administrador.","Sua conta não tem permissão para editar. Peça acesso ao administrador."],
+  fTitle:["Título","Título"], fIntro:["Descripción","Descrição"], fSteps:["Pasos","Passos"], fWarn:["Atención","Atenção"], fTips:["Consejos","Dicas"],
+  fNote:["Nota del técnico","Nota do técnico"], addStep:["+ Agregar paso","+ Adicionar passo"], addWarn:["+ Agregar aviso","+ Adicionar aviso"], addTip:["+ Agregar consejo","+ Adicionar dica"],
+  save:["Guardar","Salvar"], cancel:["Cancelar","Cancelar"], restore:["Volver al original","Voltar ao original"],
+  saved:["Guardado. Todos ya ven el cambio.","Salvo. Todos já veem a mudança."], restored:["Se volvió al texto original.","Voltou ao texto original."],
+  err:["No se pudo guardar","Não foi possível salvar"],
+  confirmRestore:["¿Seguro? Se borran las ediciones de esta tarea. Toque de nuevo para confirmar.","Tem certeza? As edições desta tarefa serão apagadas. Toque de novo para confirmar."],
+  hasImg:["Con imagen","Com imagem"], help:["Puede escribir solo en un idioma: si el otro queda vacío, se muestra el mismo texto.","Pode escrever só em um idioma: se o outro ficar vazio, aparece o mesmo texto."],
+  editedBy:["Editado por","Editado por"], team:["Técnicos","Técnicos"], teamTitle:["Técnicos que pueden editar","Técnicos que podem editar"],
+  teamHelp:["Correos de cuentas Google. Solo estas personas pueden guardar cambios.","E-mails de contas Google. Só essas pessoas podem salvar mudanças."],
+  add:["Agregar","Adicionar"], close:["Cerrar","Fechar"], up:["Subir","Subir"], down:["Bajar","Descer"], del:["Quitar","Remover"],
+};
+let FB=null, me=null, editors=[], isEditor=false, draft=null, editId=null, EDITS={};
+const BASE = {}; GUIDES.forEach(g=>BASE[g.id]=JSON.parse(JSON.stringify(g)));
+const pair = o => o ? [o.es||o.pt||"", o.pt||o.es||""] : null;
+function applyEdits(){
+  GUIDES.forEach((g,gi)=>{
+    const b=BASE[g.id], e=EDITS[g.id];
+    const n = JSON.parse(JSON.stringify(b)); n._o=null;
+    if(e){
+      if(e.title) n.title=pair(e.title);
+      if(e.intro) n.intro=pair(e.intro);
+      if(Array.isArray(e.steps)){ n.steps=e.steps.map(pair); n._o=e.steps.map(s=>Number.isInteger(s.o)?s.o:null); }
+      if(Array.isArray(e.warn)) n.warn=e.warn.map(pair);
+      if(Array.isArray(e.tips)) n.tips=e.tips.map(pair);
+      n.note = e.note && (e.note.es||e.note.pt) ? pair(e.note) : null;
+      n._by = e.byName||e.by||""; n._at = e.at && e.at.toDate ? e.at.toDate() : null;
+    }
+    Object.keys(g).forEach(k=>delete g[k]); Object.assign(g,n);
+  });
+  if(cur){ cur=GUIDES.find(x=>x.id===cur.id); if(idx>=cur.steps.length) idx=cur.steps.length-1; }
+}
+function toast(msg){ const t=$("toast"); t.textContent=msg; t.hidden=false; clearTimeout(t._h); t._h=setTimeout(()=>t.hidden=true,3500); }
+function renderAuth(){
+  const b=$("authBtn"); if(!FB){ b.hidden=true; return; } b.hidden=false;
+  b.textContent = me ? (me.displayName||me.email).split(" ")[0]+" ▾" : L(UE.login);
+  $("vEdit").hidden = !(me && isEditor);
+  $("vEdit").textContent = L(UE.edit);
+}
+function renderAuthMenu(){
+  const m=$("authMenu");
+  m.innerHTML = `<p class="who">${esc(me.email)}</p>${isEditor?"":`<p class="warnp">${esc(L(UE.noPerm))}</p>`}
+    ${me.email===ADMIN_EMAIL?`<button class="mi" id="teamBtn">${esc(L(UE.team))}</button>`:""}<button class="mi" id="logoutBtn">${esc(L(UE.logout))}</button>`;
+}
+async function initFirebase(){
+  try{
+    const V="10.12.2", base=`https://www.gstatic.com/firebasejs/${V}/`;
+    const [app, auth, fs] = await Promise.all([import(base+"firebase-app.js"), import(base+"firebase-auth.js"), import(base+"firebase-firestore.js")]);
+    const a = app.initializeApp(FB_CONFIG);
+    FB = { auth:auth.getAuth(a), db:fs.getFirestore(a), A:auth, F:fs };
+    FB.F.onSnapshot(FB.F.collection(FB.db,"edits"), snap=>{
+      EDITS={}; snap.forEach(d=>EDITS[d.id]=d.data()); applyEdits(); render();
+    }, err=>console.warn("edits", err));
+    FB.A.onAuthStateChanged(FB.auth, async u=>{
+      me=u; isEditor=false; editors=[];
+      if(u){
+        try{ const d=await FB.F.getDoc(FB.F.doc(FB.db,"config","editors")); editors=(d.exists()&&d.data().emails)||[]; }catch(e){}
+        isEditor = u.email===ADMIN_EMAIL || editors.map(x=>x.toLowerCase()).includes((u.email||"").toLowerCase());
+      }
+      renderAuth();
+    });
+    renderAuth();
+  }catch(e){ console.warn("Firebase no disponible", e); }
+}
+// ---- editor ----
+const blank = () => ({es:"",pt:""});
+const toObj = p => ({es:(p&&p[0])||"", pt:(p&&p[1])||""});
+function openEditor(){
+  const g=cur; editId=g.id;
+  draft = { title:toObj(g.title), intro:toObj(g.intro),
+    steps:g.steps.map((s,i)=>({...toObj(s), o: g._o? g._o[i] : i})),
+    warn:(g.warn||[]).map(toObj), tips:(g.tips||[]).map(toObj), note: g.note?toObj(g.note):blank() };
+  $("editor").hidden=false; renderEditor();
+}
+function biField(path, v, rows){
+  const tag = rows ? "textarea" : "input";
+  const f = (lg,lab)=> rows ? `<label class="bf"><span>${lab}</span><textarea id="ed-${path}-${lg}" rows="${rows}" data-p="${path}" data-lg="${lg}">${esc(v[lg]||"")}</textarea></label>`
+                          : `<label class="bf"><span>${lab}</span><input id="ed-${path}-${lg}" type="text" data-p="${path}" data-lg="${lg}" value="${esc(v[lg]||"")}"></label>`;
+  return `<div class="bi">${f("es","ES")}${f("pt","PT")}</div>`;
+}
+function listBlock(key, label, addLabel){
+  return `<fieldset class="eb"><legend>${esc(L(label))}</legend>${draft[key].map((it,i)=>`
+    <div class="erow">${key==="steps"?`<span class="enum">${i+1}</span>`:""}<div class="ecol">${biField(key+"."+i, it, key==="steps"?3:2)}
+      ${key==="steps"&&Number.isInteger(it.o)&&imgs(BASE[editId],it.o).length?`<img class="ethumb" src="img/${imgs(BASE[editId],it.o)[0]}.jpg" alt="">`:""}</div>
+      <div class="ebtns"><button type="button" data-mv="${key}.${i}.-1" title="${esc(L(UE.up))}" ${i===0?"disabled":""}>▲</button><button type="button" data-mv="${key}.${i}.1" title="${esc(L(UE.down))}" ${i===draft[key].length-1?"disabled":""}>▼</button><button type="button" data-rm="${key}.${i}" title="${esc(L(UE.del))}">✕</button></div></div>`).join("")}
+    <button type="button" class="eadd" data-add="${key}">${esc(L(addLabel))}</button></fieldset>`;
+}
+function renderEditor(){
+  $("edTitle").textContent = L(UE.editing)+": "+L(BASE[editId].title);
+  const edited = !!EDITS[editId];
+  $("edBody").innerHTML = `<p class="ehelp">${esc(L(UE.help))}</p>
+    <fieldset class="eb"><legend>${esc(L(UE.fTitle))}</legend>${biField("title",draft.title)}</fieldset>
+    <fieldset class="eb"><legend>${esc(L(UE.fIntro))}</legend>${biField("intro",draft.intro,2)}</fieldset>
+    ${listBlock("steps",UE.fSteps,UE.addStep)}${listBlock("warn",UE.fWarn,UE.addWarn)}${listBlock("tips",UE.fTips,UE.addTip)}
+    <fieldset class="eb note-eb"><legend>${esc(L(UE.fNote))}</legend>${biField("note",draft.note,3)}</fieldset>
+    ${edited?`<button type="button" class="erestore" id="edRestore">${esc(L(UE.restore))}</button>`:""}`;
+  $("edSave").textContent=L(UE.save); $("edCancel").textContent=L(UE.cancel);
+}
+function setPath(path, lg, val){
+  const [k,i]=path.split("."); if(i===undefined) draft[k][lg]=val; else draft[k][+i][lg]=val;
+}
+async function saveEditor(){
+  const clean = a => a.filter(x=>(x.es||"").trim()||(x.pt||"").trim()).map(x=>({es:x.es.trim(), pt:x.pt.trim(), ...(Object.prototype.hasOwnProperty.call(x,"o")?{o:Number.isInteger(x.o)?x.o:null}:{})}));
+  const data = { title:{es:draft.title.es.trim(),pt:draft.title.pt.trim()}, intro:{es:draft.intro.es.trim(),pt:draft.intro.pt.trim()},
+    steps:clean(draft.steps), warn:clean(draft.warn), tips:clean(draft.tips), note:{es:draft.note.es.trim(),pt:draft.note.pt.trim()},
+    by: me.email, byName: me.displayName||me.email, at: FB.F.serverTimestamp() };
+  if(!data.steps.length){ toast(L(UE.err)); return; }
+  $("edSave").disabled=true;
+  try{
+    await FB.F.setDoc(FB.F.doc(FB.db,"edits",editId), data);
+    try{ await FB.F.addDoc(FB.F.collection(FB.db,"history"), {...data, guide:editId}); }catch(e){}
+    $("editor").hidden=true; toast(L(UE.saved));
+  }catch(e){ console.warn(e); toast(L(UE.err)+": "+(e.code==="permission-denied"?L(UE.noPerm):e.message)); }
+  $("edSave").disabled=false;
+}
+async function restoreOriginal(){
+  const b=$("edRestore"); if(!b.dataset.ok){ b.dataset.ok="1"; b.textContent=L(UE.confirmRestore); return; }
+  try{
+    await FB.F.deleteDoc(FB.F.doc(FB.db,"edits",editId));
+    try{ await FB.F.addDoc(FB.F.collection(FB.db,"history"), {guide:editId, restored:true, by:me.email, at:FB.F.serverTimestamp()}); }catch(e){}
+    $("editor").hidden=true; toast(L(UE.restored));
+  }catch(e){ toast(L(UE.err)+": "+e.message); }
+}
+// ---- equipo (admin) ----
+function renderTeam(){
+  $("edTitle").textContent=L(UE.teamTitle);
+  $("edBody").innerHTML = `<p class="ehelp">${esc(L(UE.teamHelp))}</p>
+    <ul class="team">${editors.map((m,i)=>`<li><span>${esc(m)}</span><button type="button" data-rmed="${i}">✕</button></li>`).join("")}</ul>
+    <div class="teamadd"><input id="teamEmail" type="email" placeholder="tecnico@gmail.com" autocomplete="off"><button type="button" id="teamAdd">${esc(L(UE.add))}</button></div>`;
+  $("edSave").textContent=L(UE.save); $("edCancel").textContent=L(UE.close);
+}
+let teamMode=false;
+async function saveTeam(){
+  try{ await FB.F.setDoc(FB.F.doc(FB.db,"config","editors"), {emails:editors}); $("editor").hidden=true; teamMode=false; toast(L(UE.saved)); }
+  catch(e){ toast(L(UE.err)+": "+e.message); }
+}
+// ---- eventos ----
+document.addEventListener("click", async e=>{
+  if(e.target.id==="authBtn"){
+    if(!me){ try{ await FB.A.signInWithPopup(FB.auth, new FB.A.GoogleAuthProvider()); }catch(err){ console.warn(err); } }
+    else { renderAuthMenu(); $("authMenu").hidden=!$("authMenu").hidden; }
+    return;
+  }
+  if(e.target.id==="logoutBtn"){ $("authMenu").hidden=true; await FB.A.signOut(FB.auth); return; }
+  if(e.target.id==="teamBtn"){ $("authMenu").hidden=true; teamMode=true; $("editor").hidden=false; renderTeam(); return; }
+  if(!e.target.closest("#authMenu") && !$("authMenu").hidden) $("authMenu").hidden=true;
+  if(e.target.id==="vEdit"){ teamMode=false; openEditor(); return; }
+  if(e.target.id==="edCancel"){ $("editor").hidden=true; teamMode=false; return; }
+  if(e.target.id==="edSave"){ teamMode?saveTeam():saveEditor(); return; }
+  if(e.target.id==="edRestore"){ restoreOriginal(); return; }
+  if(e.target.id==="teamAdd"){ const v=$("teamEmail").value.trim().toLowerCase(); if(v && v.includes("@") && !editors.includes(v)){ editors.push(v); renderTeam(); } return; }
+  const rmed=e.target.closest("[data-rmed]"); if(rmed){ editors.splice(+rmed.dataset.rmed,1); renderTeam(); return; }
+  const mv=e.target.closest("[data-mv]"); if(mv){ const [k,i,d]=mv.dataset.mv.split("."); const a=draft[k], j=+i+(+d); [a[+i],a[j]]=[a[j],a[+i]]; renderEditor(); return; }
+  const rm=e.target.closest("[data-rm]"); if(rm){ const [k,i]=rm.dataset.rm.split("."); draft[k].splice(+i,1); renderEditor(); return; }
+  const ad=e.target.closest("[data-add]"); if(ad){ const k=ad.dataset.add; draft[k].push(k==="steps"?{es:"",pt:"",o:null}:blank()); renderEditor(); const els=$("edBody").querySelectorAll(`[data-p="${k}.${draft[k].length-1}"]`); if(els[0]) els[0].focus(); return; }
+});
+document.addEventListener("input", e=>{ const p=e.target.dataset&&e.target.dataset.p; if(p&&draft) setPath(p, e.target.dataset.lg, e.target.value); });
+
 const h=(location.hash||"").slice(1);
 if(["agleader","verion","errores"].includes(h)) tab=h;
 render();
+initFirebase();
 </script>
 
 </body>
